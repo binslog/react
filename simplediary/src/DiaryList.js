@@ -9,7 +9,7 @@ const DiaryList = ({ diaryList }) => {
 
       <div>
         {diaryList.map((it) => (
-          <DiaryItem key={it.id} {...it} />
+          <DiaryItem key={it.id} {...it} onEdit={onEdit} onRemove={onRemove} />
         ))}
       </div>
     </div>
