@@ -34,7 +34,8 @@ const DiaryItem = ({
 
     if (window.confirm(`${id}번 째 일기를 수정하시겠습니까?`))
       onEdit(id, localContent);
-  };
+      toggleIsEdit();
+    };
 
   return (
     <div className="DiaryItem">
@@ -43,13 +44,10 @@ const DiaryItem = ({
           작성자 : {author} | 감정점수 : {emotion}
         </span>
       </div>
-
       <br />
-
       <div>
         <span className="date">{new Date(created_date).toLocaleString()}</span>
       </div>
-
       <div className="content">
         {isEdit ? (
           <>
@@ -67,7 +65,7 @@ const DiaryItem = ({
         {isEdit ? (
           <>
             <button onClick={handleQuitEdit}>수정 취소</button>
-            <button>수정 완료</button>
+            <button onClick={handleEdit}>수정 완료</button>
           </>
         ) : (
           <>
