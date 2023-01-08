@@ -38,8 +38,12 @@ const DiaryItem = ({
     if (window.confirm(`${id}번 째 일기를 수정하시겠습니까?`)) {
       onEdit(id, localContent);
       toggleIsEdit();
+<<<<<<< HEAD
     }
   };
+=======
+    };
+>>>>>>> 63d6bc19df29d170e69b189635891b358954be81
 
   return (
     <div className="DiaryItem">
@@ -52,6 +56,13 @@ const DiaryItem = ({
           {new Date(created_date).toLocaleDateString()}
         </span>
       </div>
+<<<<<<< HEAD
+=======
+      <br />
+      <div>
+        <span className="date">{new Date(created_date).toLocaleString()}</span>
+      </div>
+>>>>>>> 63d6bc19df29d170e69b189635891b358954be81
       <div className="content">
         {isEdit ? (
           <textarea
@@ -60,7 +71,24 @@ const DiaryItem = ({
             onChange={(e) => setLocalContent(e.target.value)}
           />
         ) : (
+<<<<<<< HEAD
           content
+=======
+          <>{content}</>
+        )}
+      </div>
+      <div className="content">
+        {isEdit ? (
+          <>
+            <button onClick={handleQuitEdit}>수정 취소</button>
+            <button onClick={handleEdit}>수정 완료</button>
+          </>
+        ) : (
+          <>
+            <button onClick={handleRemove}>삭제하기</button>
+            <button onClick={toggleIsEdit}>수정하기</button>
+          </>
+>>>>>>> 63d6bc19df29d170e69b189635891b358954be81
         )}
       </div>
       {isEdit ? (

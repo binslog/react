@@ -5,7 +5,7 @@
 /* editor */
 
 .DiaryEditor {
-  border: 1px solid gray;
+  border: 1px solid beige;
   text-align: center;
   padding: 20px;
 }
@@ -36,7 +36,12 @@ textarea {
   cursor: pointer;
 }
 
+<<<<<<< HEAD
 /* List  */
+=======
+
+/* List */
+>>>>>>> 63d6bc19df29d170e69b189635891b358954be81
 
 .DiaryList {
   border: 1px solid gray;
@@ -65,7 +70,11 @@ textarea {
   padding-bottom: 10px;
   margin-bottom: 10px;
 }
+<<<<<<< HEAD
 .DiaryItem .date {
+=======
+.DiaryItem.date {
+>>>>>>> 63d6bc19df29d170e69b189635891b358954be81
   color: gray;
 }
 
