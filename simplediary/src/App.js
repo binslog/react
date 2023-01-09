@@ -1,16 +1,53 @@
-<<<<<<< HEAD
-import { useEffect, useMemo, useRef, useState, useCallback } from "react";
-=======
-import React, { useEffect, useRef, useState } from "react";
->>>>>>> 63d6bc19df29d170e69b189635891b358954be81
+import React, {
+  useEffect,
+  useRef,
+  useCallback,
+  useMemo,
+  useReducer,
+  useContext,
+} from "react";
 import "./App.css";
 import DiaryEditor from "./DiaryEditor";
 import DiaryList from "./DiaryList";
 import OptimizeTest from "./OptimizeTest";
 
-<<<<<<< HEAD
+const reducer = (state, action) => {
+  // 첫번째 파라미터는 상태, 두번째는 액션
+  switch (action.type) {
+    case "INIT": {
+      return action.data;
+    }
+    case "CREATE": {
+      const created_date = new Date().getTime();
+      const newItem = {
+        ...action.data,
+        created_date,
+      };
+      return [newItem, ...state];
+    }
+
+    case "REMOVE": {
+      return state.filter((it) => it.id !== action.targetId);
+    }
+
+    case "EDIT": {
+      return state.map((it) =>
+        it.id === action.targetId ? { ...it, content: action.newContent } : it
+      );
+    }
+
+    default:
+      return state;
+  }
+};
+
+export const DiaryStateContext = React.createContext(); // default는 공백
+
+export const DiaryDispatchContext = React.createContext(); // default는 공백
+
 const App = () => {
-  const [data, setData] = useState([]);
+  const [data, dispatch] = useReducer(reducer, []); // 상태변화를 처리하는 reducer, 데이터 초기값 빈배열
+
   const dataId = useRef(0);
 
   const getData = async () => {
@@ -28,49 +65,7 @@ const App = () => {
       };
     });
 
-    setData(initData);
-=======
-//https://jsonplaceholder.typicode.com/comments
-
-function App() {
-  const [data, setData] = useState([]);
-
-  const dataId = useRef(0); //
-
-  // promise를 반환하는 비동기함수
-  const getData = async () => {
-    const res = await fetch(
-      "https://jsonplaceholder.typicode.com/comments"
-    ).then((res) => res.json());
-    const initData = res.slice(0, 20).map((it) => {
-      return {
-        author: it.email,
-        content: it.body,
-        emotion: Math.floor(Math.random() * 5) + 1,
-        created_date: new Date().getTime(),
-        id: dataId.current++,
-      };
-    });
-
-    setData(initData);
-  };
-
-  useEffect(() => {
-    getData();
-  }, []);
-
-  const onCreate = (author, content, emotion) => {
-    const created_date = new Date().getTime();
-    const newItem = {
-      author,
-      content,
-      emotion,
-      created_date,
-      id: dataId.current,
-    };
-    dataId.current += 1;
-    setData([newItem, ...data]); // newitem 제일 상위로..!!
->>>>>>> 63d6bc19df29d170e69b189635891b358954be81
+    dispatch({ type: "INIT", data: initData }); //  setData(initData) 역할
   };
 
   useEffect(() => {
@@ -79,31 +74,27 @@ function App() {
 
   const onCreate = useCallback(
     (author, content, emotion) => {
-      const created_date = new Date().getTime();
-      const newItem = {
-        author,
-        content,
-        emotion,
-        created_date,
-        id: dataId.current,
-      };
+      dispatch({
+        type: "CREATE",
+        data: { author, content, emotion, id: dataId.current },
+      }); // oncreate 함수에서 action 개체를 일으켰다..!!
+
       dataId.current += 1;
-      setData((data) => [newItem, ...data]);
     },
 
     []
   );
 
   const onRemove = useCallback((targetId) => {
-    setData((data) => data.filter((it) => it.id !== targetId));
+    dispatch({ type: "REMOVE", targetId });
   }, []);
 
   const onEdit = useCallback((targetId, newContent) => {
-    setData(
-      data.map((it) =>
-        it.id === targetId ? { ...it, content: newContent } : it
-      )
-    );
+    dispatch({ type: "EDIT", targetId, newContent });
+  }, []);
+
+  const memoizeDispatches = useMemo(() => {
+    return { onCreate, onEdit, onRemove };
   }, []);
 
   const getDiaryAnalysis = useMemo(() => {
@@ -116,15 +107,19 @@ function App() {
   const { goodCount, badCount, goodRatio } = getDiaryAnalysis;
 
   return (
-    <div className="App">
-      <OptimizeTest />
-      <DiaryEditor onCreate={onCreate} />
-      <div>전체 일기 : {data.length}</div>
-      <div>기분 좋은 일기 개수 : {goodCount}</div>
-      <div>기분 나쁜 일기 개수 : {badCount}</div>
-      <div>기분 좋은 일기 비율 : {goodRatio}</div>
-      <DiaryList onEdit={onEdit} onRemove={onRemove} diaryList={data} />
-    </div>
+    <DiaryStateContext.Provider value={data}>
+      <DiaryDispatchContext.Provider value={memoizeDispatches}>
+        <div className="App">
+          <OptimizeTest />
+          <DiaryEditor onCreate={onCreate} />
+          <div>전체 일기 : {data.length}</div>
+          <div>기분 좋은 일기 개수 : {goodCount}</div>
+          <div>기분 나쁜 일기 개수 : {badCount}</div>
+          <div>기분 좋은 일기 비율 : {goodRatio}</div>
+          <DiaryList />
+        </div>
+      </DiaryDispatchContext.Provider>
+    </DiaryStateContext.Provider>
   );
 };
 export default App;
