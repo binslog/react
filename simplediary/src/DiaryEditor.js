@@ -1,5 +1,6 @@
 import { useContext, useRef, useState } from "react";
 import { DiaryDispatchContext } from "./App";
+import Button from "@mui/material/Button";
 
 const DiaryEditor = () => {
   const { onCreate } = useContext(DiaryDispatchContext);
@@ -78,7 +79,9 @@ const DiaryEditor = () => {
         </select>
       </div>
       <div>
-        <button onClick={handleSubmit}>일기 저장하기</button>
+        <Button variant="outlined" onClick={handleSubmit}>
+          일기 저장하기
+        </Button>
       </div>
     </div>
   );
