@@ -15,10 +15,7 @@ const reducer = (state, action) => {
       return action.data;
     }
     case "CREATE": {
-      const newItem = {
-        ...action.data,
-      };
-      newState = [newItem, ...state];
+      newState = [action.data, ...state];
       break;
     }
     case "REMOVE": {
@@ -40,10 +37,47 @@ const reducer = (state, action) => {
 export const DiaryStateContext = React.createContext();
 export const DiaryDispatchContext = React.createContext();
 
-function App() {
-  const [data, dispatch] = useReducer(reducer, []);
+const dummyData = [
+  {
+    id: 1,
+    emotion: 1,
+    content: "오늘의 일기 1번",
+    date: 1673445366007,
+  },
 
-  const dataId = useRef(0);
+  {
+    id: 2,
+    emotion: 2,
+    content: "오늘의 일기 2번",
+    date: 1673445366008,
+  },
+
+  {
+    id: 3,
+    emotion: 3,
+    content: "오늘의 일기 3번",
+    date: 1673445366009,
+  },
+
+  {
+    id: 4,
+    emotion: 4,
+    content: "오늘의 일기 4번",
+    date: 1673445366010,
+  },
+
+  {
+    id: 5,
+    emotion: 5,
+    content: "오늘의 일기 5번",
+    date: 1673445366011,
+  },
+];
+
+function App() {
+  const [data, dispatch] = useReducer(reducer, dummyData);
+
+  const dataId = useRef(0); // 초기값 설정
 
   // CREATE
   const onCreate = (date, content, emotion) => {
@@ -51,7 +85,7 @@ function App() {
       type: "CREATE",
       data: {
         id: dataId.current,
-        date: new Date().getTime(),
+        date: new Date(date).getTime(), //
         content,
         emotion,
       },
@@ -64,6 +98,8 @@ function App() {
     dispatch({ type: "REMOVE", targetId });
   };
   // EDIT
+  // ID는 유지를 하면서, ACTION.DATA를 바꾼다.
+
   const onEdit = (targetId, date, content, emotion) => {
     dispatch({
       type: "EDIT",
@@ -87,7 +123,6 @@ function App() {
       >
         <BrowserRouter>
           <div className="App">
-            <h2>App.js</h2>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/new" element={<New />} />
