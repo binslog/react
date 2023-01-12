@@ -1,16 +1,21 @@
 import { useState, useContext, useEffect } from "react";
 import { DiaryStateContext } from "../App";
 
+// 경로 조심. 한번 올라가서 가져 와야한다.
 import MyHeader from "./../components/MyHeader";
 import MyButton from "./../components/MyButton";
 import DiaryList from "./../components/DiaryList";
+// import DiaryItem from "../components/DiaryItem";
 
 const Home = () => {
   const diaryList = useContext(DiaryStateContext);
+  // console.log(diaryList);
 
   const [data, setData] = useState(new Date());
   const [curDate, setCurDate] = useState(new Date());
-  const headText = `${curDate.getFullYear()}년 ${curDate.getMonth() + 1}달`; // 시간에 년도를 가져오는 메서드
+  const headText = `${curDate.getFullYear()}년 ${curDate.getMonth() + 1}월`;
+  // 시간에 년도를 가져오는 메서드
+  // 달은 0부터 시작해서 +1 해줘야한다.
 
   useEffect(() => {
     // 월의 첫번째 날짜
@@ -28,6 +33,7 @@ const Home = () => {
         0
       ).getTime();
 
+      // first 보다는 미래여야하고, last보다는 과거여야 한다.
       setData(
         diaryList.filter((it) => firstDay <= it.date && it.date <= lastDay)
       );
@@ -57,7 +63,8 @@ const Home = () => {
         leftChild={<MyButton text={"<"} onClick={decreaseMonth} />}
         rightChild={<MyButton text={">"} onClick={increaseMonth} />}
       />
-      <DiaryList diaryList={data} />
+      <DiaryList diaryList={diaryList} />
+      {/* <DiaryItem /> */}
     </div>
   );
 };

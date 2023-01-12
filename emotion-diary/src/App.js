@@ -75,7 +75,7 @@ const dummyData = [
 ];
 
 function App() {
-  const [data, dispatch] = useReducer(reducer, dummyData);
+  const [data, dispatch] = useReducer(reducer, dummyData); // 더미 데이터를 기초 값으로 넣어준다.
 
   const dataId = useRef(0); // 초기값 설정
 
