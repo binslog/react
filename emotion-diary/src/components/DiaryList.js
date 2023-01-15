@@ -14,6 +14,7 @@ const filterOptionList = [
   { value: "bad", name: "안좋은 감정만" },
 ];
 
+// select로 선택 bar를 하나 만든다.
 const ControlMenu = ({ value, onChange, optionList }) => {
   return (
     <select
@@ -32,8 +33,8 @@ const ControlMenu = ({ value, onChange, optionList }) => {
 
 const DiaryList = ({ diaryList }) => {
   const navigate = useNavigate();
-  const [sortType, setSortType] = useState("lastest");
-  const [filter, setFilter] = useState("all");
+  const [sortType, setSortType] = useState("latest"); // 오타주의
+  const [filter, setFilter] = useState("all"); //
 
   const getProcessedDiaryList = () => {
     const filterCallBack = (item) => {
@@ -53,7 +54,7 @@ const DiaryList = ({ diaryList }) => {
     };
 
     const copyList = JSON.parse(JSON.stringify(diaryList)); // diaryList를 json화 시켜서 문자열로 바꾼다.
-    // console.log(copyList);
+    // console.log(copyList); // copy list는 dummy data를 json화.
     const filteredList =
       filter === "all" ? copyList : copyList.filter((it) => filterCallBack(it)); // filter가 all이면 모든 리스트 반환
 

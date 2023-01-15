@@ -1,42 +1,38 @@
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useState, useContext, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { DiaryStateContext } from "../App";
+import DiaryEditor from "../components/DiaryEditor";
 
 const Edit = () => {
+  const [originData, setOriginData] = useState();
   const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams(); // react router hook 사용해보자
+  const { id } = useParams();
 
-  const id = searchParams.get("id"); // id를 꺼내야한다.
-  console.log("id: ", id);
+  const diaryList = useContext(DiaryStateContext); // DiaryStateContext 를 받아온다.
+  console.log(id);
+  console.log(diaryList);
 
-  const mode = searchParams.get("mode");
-  console.log("mode: ", mode);
+  // mount 될 때 사용할 거기 때문에 useeffect를 사용하도록 한다.
+  // id나 diaryList 가 바뀔때. useEffect (()=>{},[])
+  useEffect(() => {
+    if (diaryList.length >= 1) {
+      const targetDiary = diaryList.find(
+        (it) => parseInt(it.id) === parseInt(id)
+      );
 
+      // 잘못되었으면, 타겟 diary의 유무에 따라서.
+      if (targetDiary) {
+        setOriginData(targetDiary);
+      } else {
+        navigate("/", { replace: true });
+      }
+    }
+  }, [id, diaryList]);
+
+  // origindata가 있으면,
   return (
     <div>
-      <h1>Edit</h1>
-      <p>이곳은 일기 수정 페이지입니다.</p>
-      <button onClick={() => setSearchParams({ setSearchParams })}>
-        QS 바꾸기
-      </button>
-
-      <br />
-
-      <button
-        onClick={() => {
-          navigate("/home");
-        }}
-      >
-        Home으로 고고!
-      </button>
-
-      <br />
-
-      <button
-        onClick={() => {
-          navigate(-1);
-        }}
-      >
-        뒤로 고고!
-      </button>
+      {originData && <DiaryEditor isEdit={true} originData={originData} />}
     </div>
   );
 };

@@ -11,7 +11,8 @@ const Home = () => {
   const diaryList = useContext(DiaryStateContext);
   // console.log(diaryList);
 
-  const [data, setData] = useState(new Date());
+  const [data, setData] = useState(new Date()); //
+  // console.log(data);
   const [curDate, setCurDate] = useState(new Date());
   const headText = `${curDate.getFullYear()}년 ${curDate.getMonth() + 1}월`;
   // 시간에 년도를 가져오는 메서드
@@ -24,13 +25,17 @@ const Home = () => {
         curDate.getFullYear(),
         curDate.getMonth(),
         1
-      ).getTime();
+      ).getTime(); // gettime 함수
 
       // 월의 마지막 날짜
       const lastDay = new Date(
         curDate.getFullYear(),
         curDate.getMonth() + 1,
-        0
+        0,
+        23,
+        59,
+        59
+        // 시 분 초 까지 정확하게 기재하자!
       ).getTime();
 
       // first 보다는 미래여야하고, last보다는 과거여야 한다.
@@ -41,19 +46,19 @@ const Home = () => {
   }, [diaryList, curDate]);
 
   useEffect(() => {
-    console.log(data);
+    // console.log(data);
   }, [data]);
 
   const increaseMonth = () => {
     setCurDate(
       new Date(curDate.getFullYear(), curDate.getMonth() + 1, curDate.getDate())
-    ); // 시간에 년도를 가져오는 메서드
+    ); // 시간에 (+)년도를 가져오는 메서드
   };
 
   const decreaseMonth = () => {
     setCurDate(
       new Date(curDate.getFullYear(), curDate.getMonth() - 1, curDate.getDate())
-    ); // 시간에 년도를 가져오는 메서드
+    ); // 시간에 (-)년도를 가져오는 메서드
   };
 
   return (
