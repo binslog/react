@@ -1,6 +1,6 @@
 // new와 edit 모두에 활용할 editor
 
-import { useState, useRef, useContext, useEffect } from "react";
+import { useState, useRef, useContext, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { DiaryDispatchContext } from "./../App.js";
 
@@ -29,9 +29,9 @@ const DiaryEditor = ({ isEdit, originData }) => {
   const [date, setDate] = useState(getStringDate(new Date()));
 
   const { onCreate, onEdit, onRemove } = useContext(DiaryDispatchContext); // 공급 받을거
-  const handleClickEmote = (emotion) => {
+  const handleClickEmote = useCallback((emotion) => {
     setEmotion(emotion);
-  };
+  }, []);
 
   const navigate = useNavigate(); // useNavigate 함수를 navigate에 넣어준다.
 
@@ -108,7 +108,7 @@ const DiaryEditor = ({ isEdit, originData }) => {
               <EmotionItem
                 key={it.emotion_id}
                 {...it}
-                onClick={handleClickEmote}
+                onClick={handleClickEmote} // 컨트롤 누르면 이동한다.
                 isSelected={it.emotion_id === emotion} // 선택되면 true 아니면 false
               />
             ))}
