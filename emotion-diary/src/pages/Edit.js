@@ -4,13 +4,11 @@ import { DiaryStateContext } from "../App";
 import DiaryEditor from "../components/DiaryEditor";
 
 const Edit = () => {
-  const [originData, setOriginData] = useState();
-  const navigate = useNavigate();
-  const { id } = useParams();
+  const [originData, setOriginData] = useState(); // 기존 데이터 받고
+  const navigate = useNavigate(); // 이동해줄 곳 받고
+  const { id } = useParams(); // param을 id로 받는다.
 
   const diaryList = useContext(DiaryStateContext); // DiaryStateContext 를 받아온다.
-  console.log(id);
-  console.log(diaryList);
 
   // mount 될 때 사용할 거기 때문에 useeffect를 사용하도록 한다.
   // id나 diaryList 가 바뀔때. useEffect (()=>{},[])
