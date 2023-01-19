@@ -18,6 +18,7 @@ const DiaryList = () => {
   );
 };
 
+// DiaryList 빈 배열로 받아준다.
 DiaryList.defaultProps = {
   diaryList: [],
 };
