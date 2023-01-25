@@ -40,7 +40,7 @@ const DiaryList = ({ diaryList }) => {
     const filterCallBack = (item) => {
       console.log(item.emotion);
       if (filter === "good") {
-        return parseInt(item.emotion); // 항상 숫자가 아닐 수 있으니 parseInt 형변환
+        return parseInt(item.emotion <= 3); // 항상 숫자가 아닐 수 있으니 parseInt 형변환
       } else {
         return parseInt(item.emotion > 3);
       }
@@ -57,9 +57,12 @@ const DiaryList = ({ diaryList }) => {
 
     const copyList = JSON.parse(JSON.stringify(diaryList));
     // diaryList를 json화 시켜서 문자열로 바꾼다.
-    // console.log(copyList); // copy list는 dummy data를 json화.
+    // console.log(copyList);
+    // copylist는 dummy data를 json화.
+
     const filteredList =
-      filter === "all" ? copyList : copyList.filter((it) => filterCallBack(it)); // filter가 all이면 모든 리스트 반환
+      filter === "all" ? copyList : copyList.filter((it) => filterCallBack(it));
+    // filter가 all이면 모든 리스트 반환
 
     const sortedList = filteredList.sort(compare); // 그냥 정렬이 안되니까 compare 함수가 있어야 한다.
     return sortedList;
