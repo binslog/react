@@ -10,11 +10,11 @@ import MyButton from "./MyButton";
 import EmotionItem from "./EmotionItem";
 
 import { emotionList } from "../util/emotion.js";
-import { getStringDate } from "../util/date.js"; // 자주쓰는 함수는 불러오자
+import { getStringDate } from "../util/date.js";
+// 자주쓰는 함수는 util/파일명 저장한 다음 불러오자
 
 const env = process.env;
 env.PUBLIC_URL = env.PUBLIC_URL || "";
-
 // input에 저장되는 숫자를 state로 핸들링
 // console.log(getStringDate(new Date())); // 오늘 날짜 나온다.
 // const getStringDate = (date) => {

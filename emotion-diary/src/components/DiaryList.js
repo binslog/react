@@ -9,7 +9,7 @@ const sortOptionList = [
 ];
 
 const filterOptionList = [
-  { value: "all", name: "최신순" },
+  { value: "all", name: "감정순" },
   { value: "good", name: "좋은 감정만" },
   { value: "bad", name: "안좋은 감정만" },
 ];
@@ -38,14 +38,16 @@ const DiaryList = ({ diaryList }) => {
 
   const getProcessedDiaryList = () => {
     const filterCallBack = (item) => {
+      console.log(item.emotion);
       if (filter === "good") {
-        return parseInt(item.emotion <= 3); // 항상 숫자가 아닐 수 있으니 parseInt 형변환
+        return parseInt(item.emotion); // 항상 숫자가 아닐 수 있으니 parseInt 형변환
       } else {
         return parseInt(item.emotion > 3);
       }
     };
 
     const compare = (a, b) => {
+      // console.log(a, b);
       if (sortType === "latest") {
         return parseInt(b.date) - parseInt(a.date);
       } else {
@@ -53,7 +55,8 @@ const DiaryList = ({ diaryList }) => {
       }
     };
 
-    const copyList = JSON.parse(JSON.stringify(diaryList)); // diaryList를 json화 시켜서 문자열로 바꾼다.
+    const copyList = JSON.parse(JSON.stringify(diaryList));
+    // diaryList를 json화 시켜서 문자열로 바꾼다.
     // console.log(copyList); // copy list는 dummy data를 json화.
     const filteredList =
       filter === "all" ? copyList : copyList.filter((it) => filterCallBack(it)); // filter가 all이면 모든 리스트 반환

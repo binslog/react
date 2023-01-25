@@ -8,10 +8,10 @@ import DiaryList from "./../components/DiaryList";
 // import DiaryItem from "../components/DiaryItem";
 
 const Home = () => {
-  const diaryList = useContext(DiaryStateContext);
+  const diaryList = useContext(DiaryStateContext); // app 에서 가져다 쓴다.
   // console.log(diaryList);
 
-  const [data, setData] = useState(new Date()); //
+  const [data, setData] = useState(new Date()); // 현재시간
   // console.log(data);
   const [curDate, setCurDate] = useState(new Date());
   const headText = `${curDate.getFullYear()}년 ${curDate.getMonth() + 1}월`;

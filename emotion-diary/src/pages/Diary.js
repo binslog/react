@@ -28,7 +28,7 @@ const Diary = () => {
       } else {
         // 일기가 존재하지 않을 때
         alert("없는 일기 입니다.");
-        navigate("/", { replace: true });
+        navigate("/", { replace: true }); // false가 기본값이고, 뒤로가기해도 실패한 곳으로 x
       }
     }
   }, [id, diaryList]);
@@ -71,6 +71,7 @@ const Diary = () => {
               </div>
             </div>
           </section>
+
           <section>
             <h4> 오늘의 일기</h4>
             <div className="diary_content_wrapper">
