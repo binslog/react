@@ -11,6 +11,9 @@ import DiaryEditor from "./DiaryEditor";
 import DiaryList from "./DiaryList";
 import OptimizeTest from "./OptimizeTest";
 
+// useReducer를 쓰기 위해서는 먼저 action과 state를 놔두고
+// switch를 통해 설정
+
 const reducer = (state, action) => {
   // 첫번째 파라미터는 상태, 두번째는 액션
   switch (action.type) {
@@ -18,11 +21,11 @@ const reducer = (state, action) => {
       return action.data;
     }
     case "CREATE": {
-      const created_date = new Date().getTime();
+      const created_date = new Date().getTime(); // new Date().getTime()
       const newItem = {
         ...action.data,
         created_date,
-      };
+      }; //
       return [newItem, ...state];
     }
 
@@ -59,7 +62,7 @@ const App = () => {
       return {
         author: it.email,
         content: it.body,
-        emotion: Math.floor(Math.random() * 5) + 1,
+        emotion: Math.floor(Math.random() * 5) + 1, // Math.floor(Math.random() * 5)의 결과값은 항상 0
         created_date: new Date().getTime(),
         id: dataId.current++,
       };

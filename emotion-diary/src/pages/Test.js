@@ -1,8 +1,7 @@
 import { useEffect } from "react";
+import DragDrop from "../components/DragDrop.tsx";
 
-import DiaryEditor from "../components/DiaryEditor";
-
-const New = () => {
+const Test = () => {
   useEffect(() => {
     const titleElement = document.getElementsByTagName("title")[0];
     titleElement.innerHTML = `감정 일기장 - 새 일기`;
@@ -10,9 +9,9 @@ const New = () => {
 
   return (
     <div>
-      <DiaryEditor />
+      <DragDrop />
     </div>
   );
 };
 
-export default New;
+export default Test;

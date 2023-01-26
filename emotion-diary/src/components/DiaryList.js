@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DiaryItem from "./DiaryItem";
 import MyButton from "./MyButton";
@@ -15,7 +15,11 @@ const filterOptionList = [
 ];
 
 // select로 선택 bar를 하나 만든다.
-const ControlMenu = ({ value, onChange, optionList }) => {
+const ControlMenu = React.memo(({ value, onChange, optionList }) => {
+  useEffect(() => {
+    console.log("Control Menu");
+  });
+
   return (
     <select
       className="ControlMenu"
@@ -29,12 +33,20 @@ const ControlMenu = ({ value, onChange, optionList }) => {
       ))}
     </select>
   );
-};
+});
 
 const DiaryList = ({ diaryList }) => {
   const navigate = useNavigate();
   const [sortType, setSortType] = useState("latest"); // 오타주의
   const [filter, setFilter] = useState("all"); //
+
+  // const handleSetSortType = (sortType) => {
+  //   setSortType(sortType);
+  // };
+
+  // const handleSetFilter = (filter) => {
+  //   setFilter(filler);
+  // };
 
   const getProcessedDiaryList = () => {
     const filterCallBack = (item) => {
@@ -90,8 +102,15 @@ const DiaryList = ({ diaryList }) => {
             text={"새 일기 쓰기"}
             onClick={() => navigate("/new")}
           />
+
+          <MyButton
+            type={"positive"}
+            text={"test"}
+            onClick={() => navigate("/test")}
+          />
         </div>
       </div>
+
       {getProcessedDiaryList().map((it) => (
         <DiaryItem key={it.id} {...it} />
       ))}
@@ -104,4 +123,4 @@ DiaryList.defaultProps = {
   diaryList: [],
 };
 
-export default DiaryList;
+export default React.memo(DiaryList);

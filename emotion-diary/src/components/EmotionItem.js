@@ -1,3 +1,5 @@
+import React from "react";
+
 const EmotionItem = ({
   emotion_id,
   emotion_img,
@@ -5,6 +7,8 @@ const EmotionItem = ({
   onClick,
   isSelected,
 }) => {
+  // usestate나 , usecallback 만 아니면
+
   return (
     <div
       onClick={() => onClick(emotion_id)}
@@ -19,4 +23,4 @@ const EmotionItem = ({
   );
 };
 
-export default EmotionItem;
+export default React.memo(EmotionItem);

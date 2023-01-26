@@ -11,6 +11,7 @@ const RouteTest = () => {
       <br />
       <Link to={"/diary"}>Diary</Link>
       <br />
+      <Link to={"/test"}>Test</Link>
     </>
   );
 };

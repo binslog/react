@@ -9,6 +9,14 @@ const Edit = () => {
   const { id } = useParams(); // param을 id로 받는다.
 
   const diaryList = useContext(DiaryStateContext); // DiaryStateContext 를 받아온다.
+<<<<<<< HEAD
+=======
+
+  useEffect(() => {
+    const titleElement = document.getElementsByTagName("title")[0];
+    titleElement.innerHTML = `감정 일기장 - ${id}번 일기 수정`;
+  }, []);
+>>>>>>> 7f82ba4ae981c1b4798bc088e689b1402fb6b958
 
   // mount 될 때 사용할 거기 때문에 useeffect를 사용하도록 한다.
   // id나 diaryList 가 바뀔때. useEffect (()=>{},[])

@@ -3,7 +3,7 @@ import { DiaryDispatchContext } from "./App";
 import Button from "@mui/material/Button";
 
 const DiaryEditor = () => {
-  const { onCreate } = useContext(DiaryDispatchContext);
+  const { onCreate } = useContext(DiaryDispatchContext); // usecontext를 사용하기 위한 로직
 
   const authorInput = useRef();
   const contentInput = useRef();
@@ -23,12 +23,12 @@ const DiaryEditor = () => {
 
   const handleSubmit = () => {
     if (state.author.length < 1) {
-      authorInput.current.focus();
+      authorInput.current.focus(); // 작가 length가 아무것도 없으면 거기에 포커스
       return;
     }
 
     if (state.content.length < 5) {
-      contentInput.current.focus();
+      contentInput.current.focus(); // content가 하나도 없으면 여기에 포커스
       return;
     }
 

@@ -8,8 +8,10 @@ import Home from "./pages/Home";
 import New from "./pages/New";
 import Edit from "./pages/Edit";
 import Diary from "./pages/Diary";
+import Test from "./pages/Test";
 
-// state에 대한 action을 처리한다.
+// state에 대한 action을 처리한다. 여기까지는 정해진 양식.
+// 보통 reducer 안에 switch나 if문을 많이 쓴다.
 const reducer = (state, action) => {
   let newState = [];
   switch (action.type) {
@@ -33,62 +35,27 @@ const reducer = (state, action) => {
     default:
       return state;
   }
-  localStorage.setItem("diary", JSON.stringify(newState));
+  localStorage.setItem("diary", JSON.stringify(newState)); // localstorage에 아이템을 직렬화해서 압축, json으로 넣는다.
   return newState;
 };
 
 export const DiaryStateContext = React.createContext();
 export const DiaryDispatchContext = React.createContext();
 
-// const dummyData = [
-//   {
-//     id: 1,
-//     emotion: 1,
-//     content: "오늘의 일기 1번",
-//     date: 1673445366007,
-//   },
-
-//   {
-//     id: 2,
-//     emotion: 2,
-//     content: "오늘의 일기 2번",
-//     date: 1673445366008,
-//   },
-
-//   {
-//     id: 3,
-//     emotion: 3,
-//     content: "오늘의 일기 3번",
-//     date: 1673445366009,
-//   },
-
-//   {
-//     id: 4,
-//     emotion: 4,
-//     content: "오늘의 일기 4번",
-//     date: 1673445366010,
-//   },
-
-//   {
-//     id: 5,
-//     emotion: 5,
-//     content: "오늘의 일기 5번",
-//     date: 1673445366011,
-//   },
-// ];
-
-// localstorage는 없어져도 지워지지 않는다.
-
 function App() {
   useEffect(() => {
     const localData = localStorage.getItem("diary");
+    // mount 되면 diary를 로컬에 올린다.
     if (localData) {
       const diaryList = JSON.parse(localData).sort(
         (a, b) => parseInt(b.id) - parseInt(b.id)
       );
-      dataId.current = parseInt(diaryList[0].id) + 1;
 
-      dispatch({ type: "INIT", data: diaryList });
+      if (diaryList.length >= 1) {
+        dataId.current = parseInt(diaryList[0].id) + 1;
+
+        dispatch({ type: "INIT", data: diaryList });
+      }
     }
   }, []);
   // localstorage는 없어져도 지워지지 않는다.
@@ -97,7 +64,8 @@ function App() {
   // data를 dispatch할거고, useReducer에서 reducer를 쓸거야.
   // dummyData를 기초 값으로 넣어준다.
 
-  const dataId = useRef(6); // 초기값 설정 6번 부터 해야한다. 안그러면 겹친다.
+  const dataId = useRef(0);
+  // 초기값 설정 id check 해야한다. 안그러면 겹친다.
 
   // CREATE
   const onCreate = (date, content, emotion) => {
@@ -149,6 +117,7 @@ function App() {
               <Route path="/new" element={<New />} />
               <Route path="/edit/:id" element={<Edit />} />
               <Route path="/diary/:id" element={<Diary />} />
+              <Route path="/test" element={<Test />} />
             </Routes>
           </div>
         </BrowserRouter>

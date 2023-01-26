@@ -19,6 +19,11 @@ const Home = () => {
   // 달은 0부터 시작해서 +1 해줘야한다.
 
   useEffect(() => {
+    const titleElement = document.getElementsByTagName("title")[0];
+    titleElement.innerHTML = `감정 일기장`;
+  }, []);
+
+  useEffect(() => {
     // 월의 첫번째 날짜
     if (diaryList.length >= 1) {
       const firstDay = new Date(
