@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 
+// React.Memo 연습한다..
 const CounterA = React.memo(({ count }) => {
   useEffect(() => {
     console.log(`counter A update - count: ${count}`);
