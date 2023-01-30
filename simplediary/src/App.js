@@ -71,6 +71,7 @@ const App = () => {
     dispatch({ type: "INIT", data: initData }); //  setData(initData) 역할
   };
 
+  // 빈 배열에 놔두면 전체가 mount 되는 시점에 형성
   useEffect(() => {
     getData();
   }, []);
@@ -108,6 +109,7 @@ const App = () => {
   }, [data.length]);
 
   const { goodCount, badCount, goodRatio } = getDiaryAnalysis;
+  // return 전에 호출한다. 함수가 아니라 값을 호출해야함~
 
   return (
     <DiaryStateContext.Provider value={data}>
@@ -118,7 +120,7 @@ const App = () => {
           <div>전체 일기 : {data.length}</div>
           <div>기분 좋은 일기 개수 : {goodCount}</div>
           <div>기분 나쁜 일기 개수 : {badCount}</div>
-          <div>기분 좋은 일기 비율 : {goodRatio}</div>
+          <div>기분 좋은 일기 비율 : {goodRatio}%</div>
           <DiaryList />
         </div>
       </DiaryDispatchContext.Provider>

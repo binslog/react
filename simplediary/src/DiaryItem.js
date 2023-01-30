@@ -6,8 +6,8 @@ const DiaryItem = ({ id, author, content, emotion, created_date }) => {
 
   const localContentInput = useRef();
   const [localContent, setLocalContent] = useState(content);
-  const [isEdit, setIsEdit] = useState(false);
-  const toggleIsEdit = () => setIsEdit(!isEdit);
+  const [isEdit, setIsEdit] = useState(false); // boolean형으로 isEdit 만든다.
+  const toggleIsEdit = () => setIsEdit(!isEdit); // 반전 시킨다.
 
   const handleClickRemove = () => {
     if (window.confirm(`${id}번째 일기를 정말 삭제하시겠습니까?`)) {
