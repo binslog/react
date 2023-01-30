@@ -8,7 +8,6 @@ import Home from "./pages/Home";
 import New from "./pages/New";
 import Edit from "./pages/Edit";
 import Diary from "./pages/Diary";
-import Test from "./pages/Test";
 
 // state에 대한 action을 처리한다. 여기까지는 정해진 양식.
 // 보통 reducer 안에 switch나 if문을 많이 쓴다.
@@ -117,7 +116,6 @@ function App() {
               <Route path="/new" element={<New />} />
               <Route path="/edit/:id" element={<Edit />} />
               <Route path="/diary/:id" element={<Diary />} />
-              <Route path="/test" element={<Test />} />
             </Routes>
           </div>
         </BrowserRouter>

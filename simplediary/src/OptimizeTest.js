@@ -8,6 +8,7 @@ const CounterA = React.memo(({ count }) => {
   return <div>{count}</div>;
 });
 
+// 객체를 비교 할때는 얕은 비교를 하게 된다. 주소에 의한 비교! 
 const CounterB = ({ obj }) => {
   useEffect(() => {
     console.log(`counterB update - count: ${obj.count}`);

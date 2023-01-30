@@ -102,12 +102,6 @@ const DiaryList = ({ diaryList }) => {
             text={"새 일기 쓰기"}
             onClick={() => navigate("/new")}
           />
-
-          <MyButton
-            type={"positive"}
-            text={"test"}
-            onClick={() => navigate("/test")}
-          />
         </div>
       </div>
 

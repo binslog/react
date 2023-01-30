@@ -13,6 +13,7 @@ const Home = () => {
 
   const [data, setData] = useState(new Date()); // 현재시간
   // console.log(data);
+
   const [curDate, setCurDate] = useState(new Date());
   const headText = `${curDate.getFullYear()}년 ${curDate.getMonth() + 1}월`;
   // 시간에 년도를 가져오는 메서드
