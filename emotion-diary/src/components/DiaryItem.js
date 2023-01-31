@@ -18,6 +18,7 @@ const DiaryItem = ({ id, emotion, content, date }) => {
   };
 
   return (
+    // 감정에 따라서 이름 바꾼다.
     <div className="DiaryItem">
       <div
         className={[

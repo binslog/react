@@ -144,6 +144,7 @@ header .head_btn_right {
   border-bottom: 1px solid #e2e2e2;
 
   display: flex;
+  /* 3열로 만든다 */
   justify-content: space-between;
 }
 

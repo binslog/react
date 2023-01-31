@@ -14,9 +14,9 @@ const Home = () => {
   const [data, setData] = useState(new Date()); // 현재시간
   // console.log(data);
 
-  const [curDate, setCurDate] = useState(new Date());
+  const [curDate, setCurDate] = useState(new Date()); // 날짜를 저장하는 date, 현재시간.
   const headText = `${curDate.getFullYear()}년 ${curDate.getMonth() + 1}월`;
-  // 시간에 년도를 가져오는 메서드
+  // 시간에 년과 월을 가져오는 메서드 getFullYear, getMonth ()
   // 달은 0부터 시작해서 +1 해줘야한다.
 
   useEffect(() => {
@@ -25,15 +25,14 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    // 월의 첫번째 날짜
+    // 랜더링 될 때, 첫 날과 마지막 날을 추린다.
     if (diaryList.length >= 1) {
       const firstDay = new Date(
         curDate.getFullYear(),
         curDate.getMonth(),
         1
-      ).getTime(); // gettime 함수
+      ).getTime();
 
-      // 월의 마지막 날짜
       const lastDay = new Date(
         curDate.getFullYear(),
         curDate.getMonth() + 1,
@@ -55,12 +54,14 @@ const Home = () => {
     // console.log(data);
   }, [data]);
 
+  // 월을 하나 늘리기 위한 함수. count + 1
   const increaseMonth = () => {
     setCurDate(
       new Date(curDate.getFullYear(), curDate.getMonth() + 1, curDate.getDate())
     ); // 시간에 (+)년도를 가져오는 메서드
   };
 
+  // 월을 하나 줄이기 위한 함수. count - 1
   const decreaseMonth = () => {
     setCurDate(
       new Date(curDate.getFullYear(), curDate.getMonth() - 1, curDate.getDate())

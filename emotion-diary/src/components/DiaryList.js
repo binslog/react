@@ -17,7 +17,7 @@ const filterOptionList = [
 // select로 선택 bar를 하나 만든다.
 const ControlMenu = React.memo(({ value, onChange, optionList }) => {
   useEffect(() => {
-    console.log("Control Menu");
+    // console.log("Control Menu");
   });
 
   return (
@@ -50,18 +50,18 @@ const DiaryList = ({ diaryList }) => {
 
   const getProcessedDiaryList = () => {
     const filterCallBack = (item) => {
-      console.log(item.emotion);
       if (filter === "good") {
-        return parseInt(item.emotion <= 3); // 항상 숫자가 아닐 수 있으니 parseInt 형변환
+        console.log(1);
+        return parseInt(item.emotion) <= 3; // 항상 숫자가 아닐 수 있으니 parseInt 형변환
       } else {
-        return parseInt(item.emotion > 3);
+        return parseInt(item.emotion) > 3;
       }
     };
 
     const compare = (a, b) => {
       // console.log(a, b);
       if (sortType === "latest") {
-        return parseInt(b.date) - parseInt(a.date);
+        return parseInt(b.date) - parseInt(a.date); // str=>int
       } else {
         return parseInt(a.date) - parseInt(b.date);
       }
